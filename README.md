@@ -18,3 +18,4 @@ In order to get the *Gameit* to works, you need to define three separate files s
 
 You can read the full documentation in doc directory.
 
+![1aeef64ace58f6e66974ea7175a8f2c4](https://cloud.githubusercontent.com/assets/5694520/26025539/4ea235aa-37ff-11e7-8e65-62cf261703d8.jpg)
