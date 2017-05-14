@@ -29,7 +29,7 @@ Well, all you need is writing your desired description regard a particular award
 
 > I want to give `QuickLoyal` award to any user that paybacks in a group after someone's request less than N minute as the first person.
 
-Well you can simply define your rule as following:
+You can simply define your rule as following:
 
 ```
 pay_back_rule = {
@@ -37,6 +37,7 @@ pay_back_rule = {
 	cond2 = (count(payack.payrequest_id.pay_off) == count(payack.payrequest_id.involved_users))
 
 	rule = cond1 and cond2
+	award = "QuickLoyal"
 }
 
 ```
