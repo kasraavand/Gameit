@@ -29,7 +29,21 @@ Well, all you need is writing your desired description regard a particular award
 
 > I want to give `QuickLoyal` award to any user that paybacks in a group after someone's request less than N minute as the first person.
 
-You should have already defined the `Award_x` in `awards.json` file like following:
+Well you can simply define your rule as following:
+
+```
+pay_back_rule = {
+	cond1 = (payback.datetime - payack.payrequest_id.datetime) < time(h=3)
+	cond2 = (count(payack.payrequest_id.pay_off) == count(payack.payrequest_id.involved_users))
+
+	rule = cond1 and cond2
+}
+
+```
+
+----------
+
+Note that you should have already defined the `Award_x` in `awards.json` file like following:
 
 ```
 QuickLoyal = {
@@ -87,17 +101,5 @@ pay_rquest = {
 				scope = None
 		}
 			}
-
-```
-
-Then we can define the rule as following:
-
-```
-pay_back_rule = {
-	cond1 = (payback.datetime - payack.payrequest_id.datetime) < time(h=3)
-	cond2 = (count(pay_off) == count(payack.payrequest_id.involved_users))
-
-	rule = cond1 and cond2
-}
 
 ```
