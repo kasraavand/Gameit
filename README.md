@@ -60,47 +60,25 @@ QuickLoyal = {
 And following methods in `methods.json` file:
 
 ```
-payback = {
-	parent = user
-	attributes = {
-		pay_request_id = {
-			type= integer
-				}
+{
 
-		datetime = {
-			type = datetime
-			scope = (date(y=2016,m=01,d=01), None)
-		}
-		amount = {
-			type = int
-			scope = (0, 5M)
-			}
-		}
-	}
+"payback": {
+	"parent": "user",
+	"attributes": {
+		"pay_request_id":"int",
+		"datetime":"datetime", 
+		"amount":"float"},
+},
 
-pay_rquest = {
-	parent = user
-	attributes = {
-			request_id = {
-				type= integer
-				}
-			datetime = {
-				type = datetime
-				scope = (date(y=2016,m=01,d=01), None)
-						}
-			amount = {
-				type = int
-				scope = (0, 5M)
-					 }
-			involved_users = {
-				type = list -> int
-				scope = (0, 20)
-					}
-				}
-			pay_off = {
-				type = list -> int
-				scope = None
-		}
+"pay_rquest": {
+	"parent": "user",
+	"attributes": {
+			"request_id":"int",
+			"datetime": "datetime",
+			"amount":"float",
+			"involved_users":"list",
+			"pay_off":"list"
 			}
+}
 
 ```
