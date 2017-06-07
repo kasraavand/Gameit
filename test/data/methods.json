@@ -1,0 +1,20 @@
+{
+
+"payback": {
+	"parent": "user",
+	"attributes": {
+		"pay_request_id":"int",
+		"datetime":"datetime", 
+		"amount":"float"},
+},
+
+"pay_rquest": {
+	"parent": "user",
+	"attributes": {
+			"request_id":"int",
+			"datetime": "datetime",
+			"amount":"float",
+			"involved_users":"list",
+			"pay_off":"list"
+			}
+}

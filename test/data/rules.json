@@ -1,0 +1,9 @@
+{"pay_back_rule": {
+	"conditions":{
+	"cond1": "(payback.datetime - payback.user_payrequest_method.datetime) < 4",
+	"cond2": "(count(payback.user_payrequest_method.pay_off) == count(payback.user_payrequest_method.involved_users))"
+	},
+	"rule": "cond1 and cond2",
+	"award": "QuickLoyal"
+}
+}

@@ -15,4 +15,3 @@ In Gameit, functions fall under one of the following categories:
    - time(hour, minute, second)
    - count(attribute)
    - average(attribute)
-   -

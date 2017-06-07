@@ -1,15 +1,16 @@
 from datetime import datetime, date, time
-import config
 import json
+from models import Importer
 
 
 class Parser:
     def __init__(self, *args, **kwargs):
-        attr_path = config.arrtibutes_path
-        self.raw_methods = self.load_raw_data(attr_path)
+        method_path = kwargs['method_path']
+        self.raw_methods = self.load_raw_data(method_path)
+        self.importer = Importer(db_name=kwargs['db_name'])
 
-    def load_raw_data(self, attr_path):
-        with open(attr_path) as f:
+    def load_raw_data(self, method_path):
+        with open(method_path) as f:
             raw_methods = json.load(f)
         return raw_methods
 
@@ -26,41 +27,55 @@ class Parser:
                 finally:
                     return scp
 
-        for attr in attrs:
+        for attr_name, attr in attrs.items():
             attr_type = attr['type']
             try:
-                attr_type = __builtins__.__dict__[attr]
+                attr_type = __builtins__[str(attr)]
             except KeyError:
                 if attr_type == 'datetime':
                     attr_type = datetime
                 else:
                     attr_type = "UNDEFINED"
-            scope = attr['scope']
+            try:
+                start, end = attr['scope']
+                scope = (validate_scope(start), validate_scope(end))
+            except (KeyError, ValueError):
+                yield attr_name, {
+                    "type": attr_type,
+                }
+            else:
+                yield attr_name, {
+                    "type": attr_type,
+                    "scope": scope
 
-            start, end = map(str.strip, scope.strip("()").split(','))
-            scope = (validate_scope(start), validate_scope(end))
-            yield {
-                "type": attr_type,
-                "scope": scope
-            }
+                }
 
     def parse_method(self):
-        for method in self.raw_methods:
+        # Create method object.
+        for name, method in self.raw_methods.items():
             attributes = dict(self.pars_attributes(method['attributes']))
             method['attributes'] = attributes
-            yield Method(**method)
+            yield Method(name, **method)
+
+    def pickle_methods(self):
+        pass
 
 
 class Method:
     def __init__(self, *args, **kwargs):
-        self.attributes = kwargs['attributes']
-        self.parent = kwargs['parent']
-        self.description = kwargs['description']
+        attributes = kwargs.pop('attributes')
+        method = self.importer.get_method(self, kwargs['parent_type'],
+                                          kwargs['parent_id'], kwargs['method_name'])
+        self.name = args[0]
+        self.__dict__.update(kwargs)
+        self.__dict__.update(attributes)
 
     def __getattribute__(self, name):
-        try:
-            attr = self.attributes[name]
-        except KeyError:
-            raise
-        else:
-            return attr[name]
+        if name.endswith('id'):
+            name = name.strip("_id")
+        elif not name.startswith("__") and name != 'name':
+            method = self.importer.import_method(self.)
+        return object.__getattribute__(self, name)
+
+    def __len__(self):
+        return 3
