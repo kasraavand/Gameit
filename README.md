@@ -1,9 +1,9 @@
 ## preamble
 
-*Gameit* is an intelligent gamification framework that accepts a set of predefined `rules` and uses a structured and high level abstracted language to generates the respective functions in Python-3.
+*Gameit* is an intelligent gamification framework that accepts a set of predefined `rules` and uses a high level abstractural language to generates respective functions in Python-3.
 
 
-## How it works?
+## How does it work?
 
 *Gameit* uses rules for constructing the functions, but what are rules? every rule contains a set of conditions and is defined by a logical relation between these conditions.
 
